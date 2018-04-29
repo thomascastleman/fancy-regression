@@ -31,8 +31,8 @@ NeuralNetwork * initNN(int numLayers, int * params) {
 }
 
 // construct new training set
-TrainingData * initTrainingData(int size) {
-	TrainingData * t = malloc(sizeof(TrainingData));
+DataSet * initDataSet(int size) {
+	DataSet * t = malloc(sizeof(DataSet));
 	t->size = size;
 	t->inputs = malloc(size * sizeof(Matrix *));
 	t->outputs = malloc(size * sizeof(Matrix *));
@@ -41,4 +41,4 @@ TrainingData * initTrainingData(int size) {
 
 // train a given network on a given set of training inputs and outputs, with a
 // given batch size for batch gradient descent
-void train(NeuralNetwork * nn, TrainingData * training, int batchSize, float learningRate);
+void train(NeuralNetwork * nn, DataSet * training, int batchSize, float learningRate);

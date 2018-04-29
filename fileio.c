@@ -1,4 +1,5 @@
-
+#include <stdio.h>
+#include <stdlib.h>
 #include "fileio.h"
 #include "network.h"
 
@@ -9,14 +10,18 @@ void construct(char * filename, NeuralNetwork * nn);
 void serialize(char * filename, NeuralNetwork * nn);
 
 // read in and format training data
-TrainingData * readTraining() {
-	// FILE *fp;
-	// char buff[255];
+void readData(char * filename) {
+	FILE * fp;
+	// char buff[1570];
 
-	// fp = fopen("/MNIST/mnist_train.csv", "r");
-	// fgets(buff, 255, (FILE*)fp);
-	// printf("%s\n", buff);
-	// fclose(fp);
+	fp = fopen(filename, "r");
+
+	
+
+	// if (fgets(buff, 1570, fp) != NULL) {
+	// 	printf("%s",buff);
+	// }
+	fclose(fp);
 }
 
 // turn int into vector form

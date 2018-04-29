@@ -13,12 +13,14 @@ void printMatrix(Matrix * m) {
 	}
 }
 
-void main() {
+int main() {
 	// int parameters[] = {2, 3, 2};
 	// NeuralNetwork * n = initNN(3, parameters);
 
 	// printMatrix(n->w[0]);
 	// free(n);
 
-	readTraining();
+	readData("/Users/johnlindbergh/Documents/fancy-regression/MNIST/mnist_train.csv");
+
+	return 0;
 }
