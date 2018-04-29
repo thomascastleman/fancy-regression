@@ -1,4 +1,4 @@
-
+#include <stdlib.h>
 #include "network.h"
 
 // construct a new r by c matrix

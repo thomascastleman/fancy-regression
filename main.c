@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "network.c"
+#include "network.h"
+#include "fileio.h"
 
 // debug, print matrix
 void printMatrix(Matrix * m) {
@@ -18,4 +19,6 @@ void main() {
 
 	// printMatrix(n->w[0]);
 	// free(n);
+
+	readTraining();
 }
