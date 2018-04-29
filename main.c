@@ -20,7 +20,7 @@ int main() {
 	// printMatrix(n->w[0]);
 	// free(n);
 
-	readData("/Users/johnlindbergh/Documents/fancy-regression/MNIST/mnist_train.csv");
+	// DataSet * d = readData("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist_train.csv", 5);
 
 	return 0;
 }
