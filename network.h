@@ -19,14 +19,14 @@ typedef struct {
 	int size;
 	Matrix ** inputs;
 	Matrix ** outputs;
-} TrainingData;
+} DataSet;
 
 Matrix * initMatrix(int r, int c);
 
 NeuralNetwork * initNN(int numLayers, int * params);
 
-TrainingData * initTrainingData(int size);
+DataSet * initDataSet(int size);
 
-void train(NeuralNetwork * nn, TrainingData * training, int batchSize, float learningRate);
+void train(NeuralNetwork * nn, DataSet * training, int batchSize, float learningRate);
 
 #endif
