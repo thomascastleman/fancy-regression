@@ -44,12 +44,16 @@ DataSet * readData(char * filename, int size, int usingLetters) {
 		int c, i = 0, pairIndex = 0, label[2], pixel[3];
 
 		while (pairIndex < size) {
+			i = 0;
+
 			// establish label as output vector
 			while ((c = fgetc(fp)) != ',') {
 				label[i++] = c - '0';
 			}
 			int labelValue = convertToInt(label, i - 1);
 			d->outputs[pairIndex] = vectorizeLabel(labelValue, usingLetters);
+
+			printf("Label value: %d\n", labelValue);
 
 			i = 0;
 			int vectorIndex = 0;

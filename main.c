@@ -15,7 +15,7 @@ void printMatrix(Matrix * m) {
 
 int main() {
 
-	DataSet * d = readData("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 5, 0);
+	DataSet * d = readData("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 10, 0);
 	
 	return 0;
 }
