@@ -34,7 +34,7 @@ Matrix * vectorizeLabel(int value, int isLetter) {
 }
 
 // construct a data set (of a given size) of image vector inputs and label vector ouputs off of a csv file
-DataSet * readData(char * filename, int size, int usingLetters) {
+DataSet * readMNIST(char * filename, int size, int usingLetters) {
 	DataSet * d = initDataSet(size);
 
 	FILE * fp;	// declare pointer to filestream
