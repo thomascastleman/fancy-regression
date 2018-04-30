@@ -39,6 +39,5 @@ DataSet * initDataSet(int size) {
 	return t;
 }
 
-// train a given network on a given set of training inputs and outputs, with a
-// given batch size for batch gradient descent
+// train a given network on a given dataset using batch gradient descent
 void train(NeuralNetwork * nn, DataSet * training, int batchSize, float learningRate);

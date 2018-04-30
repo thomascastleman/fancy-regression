@@ -33,7 +33,7 @@ Matrix * vectorizeLabel(int value, int isLetter) {
 	return v;
 }
 
-// construct a data set of image vector inputs and label vector ouputs off of a csv file
+// construct a data set (of a given size) of image vector inputs and label vector ouputs off of a csv file
 DataSet * readData(char * filename, int size, int usingLetters) {
 	DataSet * d = initDataSet(size);
 
@@ -53,8 +53,7 @@ DataSet * readData(char * filename, int size, int usingLetters) {
 			int labelValue = convertToInt(label, i - 1);
 			d->outputs[pairIndex] = vectorizeLabel(labelValue, usingLetters);
 
-			printf("Label value: %d\n", labelValue);
-
+			// now vectorize pixels
 			i = 0;
 			int vectorIndex = 0;
 			Matrix * inputVector = initMatrix(SIZE_OF_IMAGE, 1);
