@@ -8,6 +8,6 @@ void construct(char * filename, NeuralNetwork * nn);
 
 void serialize(char * filename, NeuralNetwork * nn);
 
-DataSet * readData(char * filename, int size);
+DataSet * readData(char * filename, int size, int usingLetters);
 
 #endif
