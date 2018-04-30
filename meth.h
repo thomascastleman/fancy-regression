@@ -12,10 +12,6 @@ Matrix * add(Matrix * a, Matrix * b);
 
 Matrix * scale(float scalar, Matrix * m);
 
-float sigmoid(float x);
-
-float sigmoidPrime(float x);
-
 Matrix * sigmoidMatrix(Matrix * m);
 
 Matrix * sigmoidPrimeMatrix(Matrix * m);
