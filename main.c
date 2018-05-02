@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "network.h"
-#include "fileio.h"
+#include "data.h"
 
 // debug, print matrix
 void printMatrix(Matrix * m) {

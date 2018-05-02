@@ -1,6 +1,6 @@
 
-#ifndef _network_
-#define _network_
+#ifndef _NETWORK_INCLUDED_
+#define _NETWORK_INCLUDED_
 
 typedef struct {
 	int rows;
@@ -26,6 +26,10 @@ Matrix * initMatrix(int r, int c);
 NeuralNetwork * initNN(int numLayers, int * params);
 
 DataSet * initDataSet(int size);
+
+void construct(char * filename, NeuralNetwork * nn);
+
+void serialize(char * filename, NeuralNetwork * nn);
 
 void train(NeuralNetwork * nn, DataSet * training, int batchSize, float learningRate);
 

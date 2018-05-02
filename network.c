@@ -18,6 +18,7 @@ NeuralNetwork * initNN(int numLayers, int * params) {
 	NeuralNetwork * n = malloc(sizeof(NeuralNetwork));	// allocate network
 
 	n->numberOfLayers = numLayers;
+	n->params = params;
 	n->w = malloc((numLayers - 1) * sizeof(Matrix *));	// allocate array of weight matrices
 	n->b = malloc((numLayers - 1) * sizeof(Matrix *));	// allocate array of bias vectors
 
@@ -38,6 +39,12 @@ DataSet * initDataSet(int size) {
 	t->outputs = malloc(size * sizeof(Matrix *));
 	return t;
 }
+
+// construct a network off of a serialization
+void construct(char * filename, NeuralNetwork * nn);
+
+// write weights and biases of a network to given file
+void serialize(char * filename, NeuralNetwork * nn);
 
 // train a given network on a given dataset using batch gradient descent
 void train(NeuralNetwork * nn, DataSet * training, int batchSize, float learningRate);

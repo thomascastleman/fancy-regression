@@ -1,16 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "fileio.h"
+#include "data.h"
 #include "network.h"
 
 #define SIZE_OF_IMAGE 784 // 28x28 training images
 #define OUTPUT_VECTOR_SIZE 36	// 10 digits, 26 letters
-
-// construct a network off of a serialization
-void construct(char * filename, NeuralNetwork * nn);
-
-// write weights and biases of a network to given file
-void serialize(char * filename, NeuralNetwork * nn);
 
 // take an int array representing the place values of an integer and convert to actual value
 int convertToInt(int places[], int i) {

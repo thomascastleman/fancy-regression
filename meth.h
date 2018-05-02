@@ -1,6 +1,6 @@
 
-#ifndef _meth_
-#define _meth_
+#ifndef _METH_INCLUDED_
+#define _METH_INCLUDED_
 
 Matrix * dot(Matrix * a, Matrix * b);
 
