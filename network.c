@@ -79,7 +79,7 @@ void serialize(char * filename, NeuralNetwork * n) {
 }
 
 // construct a network off of a serialization
-void construct(char * filename, NeuralNetwork * n);
+NeuralNetwork * construct(char * filename);
 
 // train a given network on a given dataset using batch gradient descent
 void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningRate);

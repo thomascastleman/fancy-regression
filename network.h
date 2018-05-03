@@ -29,7 +29,7 @@ DataSet * initDataSet(int size);
 
 void serialize(char * filename, NeuralNetwork * n);
 
-void construct(char * filename, NeuralNetwork * n);
+NeuralNetwork * construct(char * filename);
 
 void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningRate);
 

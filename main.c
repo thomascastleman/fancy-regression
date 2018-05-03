@@ -17,6 +17,7 @@ int main() {
 
 	int params[] = {2, 3, 1};
 	NeuralNetwork * n = initNN(3, params);
+	free(n);
 
 	return 0;
 }
