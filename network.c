@@ -16,11 +16,6 @@ Matrix * initMatrix(int r, int c) {
 
 // construct a new network off of given params
 NeuralNetwork * initNN(int numLayers, int * params) {
-	// if (sizeof(params) / sizeof(params[0]) != numLayers) {
-	// 	printf("%d != %d\n", numLayers, sizeof(params));
-	// 	// perror("Network parameters do not agree with layer count (initNN)");
-	// }
-
 	NeuralNetwork * n = malloc(sizeof(NeuralNetwork));	// allocate network
 
 	n->numberOfLayers = numLayers;
@@ -39,11 +34,11 @@ NeuralNetwork * initNN(int numLayers, int * params) {
 
 // construct new training set
 DataSet * initDataSet(int size) {
-	DataSet * t = malloc(sizeof(DataSet));
-	t->size = size;
-	t->inputs = malloc(size * sizeof(Matrix *));
-	t->outputs = malloc(size * sizeof(Matrix *));
-	return t;
+	DataSet * d = malloc(sizeof(DataSet));
+	d->size = size;
+	d->inputs = malloc(size * sizeof(Matrix *));
+	d->outputs = malloc(size * sizeof(Matrix *));
+	return d;
 }
 
 // write weights and biases of a network to given file

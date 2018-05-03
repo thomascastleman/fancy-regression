@@ -14,10 +14,9 @@ void printMatrix(Matrix * m) {
 }
 
 int main() {
-	
+
 	int params[] = {2, 3, 1};
 	NeuralNetwork * n = initNN(3, params);
-	serialize("network.txt", n);
 
 	return 0;
 }
