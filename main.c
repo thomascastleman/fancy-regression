@@ -14,8 +14,10 @@ void printMatrix(Matrix * m) {
 }
 
 int main() {
-
-	DataSet * d = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 2, 0);
+	
+	int params[] = {2, 3, 1};
+	NeuralNetwork * n = initNN(3, params);
+	serialize("network.txt", n);
 
 	return 0;
 }

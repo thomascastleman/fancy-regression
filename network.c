@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "network.h"
 
@@ -15,6 +16,11 @@ Matrix * initMatrix(int r, int c) {
 
 // construct a new network off of given params
 NeuralNetwork * initNN(int numLayers, int * params) {
+	// if (sizeof(params) / sizeof(params[0]) != numLayers) {
+	// 	printf("%d != %d\n", numLayers, sizeof(params));
+	// 	// perror("Network parameters do not agree with layer count (initNN)");
+	// }
+
 	NeuralNetwork * n = malloc(sizeof(NeuralNetwork));	// allocate network
 
 	n->numberOfLayers = numLayers;
@@ -40,11 +46,45 @@ DataSet * initDataSet(int size) {
 	return t;
 }
 
-// construct a network off of a serialization
-void construct(char * filename, NeuralNetwork * nn);
-
 // write weights and biases of a network to given file
-void serialize(char * filename, NeuralNetwork * nn);
+void serialize(char * filename, NeuralNetwork * n) {
+	FILE * fp = fopen(filename, "w");	// open file for writing
+	int i, j, k;
+
+	if (fp != NULL) {
+		// write params to file
+		for (i = 0; i < n->numberOfLayers - 1; i++) {
+			fprintf(fp, "%d,", n->params[i]);
+		}
+		fprintf(fp, "%d|", n->params[n->numberOfLayers - 1]);
+
+		// for each bias vector
+		for (i = 0; i < n->numberOfLayers - 1; i++) {
+			// write each bias
+			for (j = 0; j < n->params[i + 1]; j++) {
+				fprintf(fp, "%f,", n->b[i]->at[j][0]);
+			}
+		}
+
+		// for each weight matrix
+		for (i = 0; i < n->numberOfLayers - 1; i++) {
+			// for each row
+			for (j = 0; j < n->params[i + 1]; j++) {
+				// write each weight
+				for (k = 0; k < n->params[i]; k++) {
+					fprintf(fp, "%f,", n->w[i]->at[j][k]);
+				}
+			}
+		}
+	} else {
+		perror("Error opening file (network.c)");
+	}
+
+	fclose(fp);
+}
+
+// construct a network off of a serialization
+void construct(char * filename, NeuralNetwork * n);
 
 // train a given network on a given dataset using batch gradient descent
-void train(NeuralNetwork * nn, DataSet * training, int batchSize, float learningRate);
+void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningRate);

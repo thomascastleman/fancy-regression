@@ -71,7 +71,7 @@ DataSet * readMNIST(char * filename, int size, int usingLetters) {
 				break;
 		}
 	} else {
-		perror("Error reading file (fileio.c)");
+		perror("Error reading file (data.c)");
 	}
 
 	fclose(fp);
