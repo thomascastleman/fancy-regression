@@ -47,6 +47,8 @@ void serialize(char * filename, NeuralNetwork * n) {
 	int i, j, k;
 
 	if (fp != NULL) {
+		fprintf(fp, "%d|", n->numberOfLayers);
+
 		// write params to file
 		for (i = 0; i < n->numberOfLayers - 1; i++) {
 			fprintf(fp, "%d,", n->params[i]);
@@ -72,14 +74,107 @@ void serialize(char * filename, NeuralNetwork * n) {
 			}
 		}
 	} else {
-		perror("Error opening file (network.c)");
+		perror("Error opening file (network.c:serialize)");
 	}
 
 	fclose(fp);
 }
 
+typedef struct {
+	int size;
+	char * value;
+} String;
+
+// copy everything in buffer up to stopping point into a char *
+String * readNextValue(char * buffer, int position, char stop) {
+	int size = 0, i = position, k = 0;
+	while (buffer[i++] != stop)
+		size++;
+
+	String * s = malloc(sizeof(String));
+	s->size = size;
+	s->value = malloc(size * sizeof(char));	// allocate enough to store this value
+
+	for (i = position; i < position + size; i++) {
+		s->value[k++] = buffer[i];
+	}
+
+	return s;
+}
+
+// copy entire file into char * buffer
+char * copyFileContents(FILE * fp) {
+	// determine file size
+	fseek(fp, 0L, SEEK_END);
+	long fsize = ftell(fp);
+	rewind(fp);
+
+	// allocate buffer
+	char * buffer = calloc(1, fsize + 1);
+	if (!buffer) fclose(fp), exit(1);
+
+	// copy file contents into buffer
+	if (fread(buffer, fsize, 1, fp) != 1)
+		free(buffer), exit(1);
+
+	return buffer;
+}
+
 // construct a network off of a serialization
-NeuralNetwork * construct(char * filename);
+NeuralNetwork * construct(char * filename) {
+	FILE * fp = fopen(filename, "r");	// open file for reading
+	int i, l, j, k;
+	String * next;
+
+	if (fp != NULL) {
+		char * buffer = copyFileContents(fp);	// copy contents into buffer for reading
+		fclose(fp);
+
+		next = readNextValue(buffer, 0, '|');	// parse number of layers
+		int numLayers = atoi(next->value);
+		i = next->size + 1;	// move index along in buffer
+
+		int params[numLayers], paramIndex = 0;	// allocate parameters array
+		char stop = ',';
+
+		// for each parameter
+		while (paramIndex < numLayers) {
+			if (paramIndex == numLayers - 1) stop = '|';	// change delimiter if last param
+			next = readNextValue(buffer, i, stop);		// read parameter into param array
+			params[paramIndex++] = atoi(next->value);
+			i += next->size + 1;	// move index along
+		}
+
+		// initialize network
+		NeuralNetwork * n = initNN(numLayers, params);
+
+		// for every bias vector
+		for (l = 0; l < numLayers - 1; l++) {
+			// for each bias
+			for (j = 0; j < params[l + 1]; j++) {
+				next = readNextValue(buffer, i, ',');
+				n->b[l]->at[j][0] = atof(next->value);
+				i += next->size + 1;
+			}
+		}
+
+		// for each weight matrix
+		for (l = 0; l < numLayers - 1; l++) {
+			for (j = 0; j < params[l + 1]; j++) {
+				for (k = 0; k < params[l]; k++) {
+					next = readNextValue(buffer, i, ',');
+					n->w[l]->at[j][k] = atof(next->value);
+					i += next->size + 1;
+				}
+			}
+		}
+
+		free(buffer);
+		return n;
+	} else {
+		perror("Error reading file (network.c:construct)"), exit(1);
+	}
+}
 
 // train a given network on a given dataset using batch gradient descent
 void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningRate);

@@ -15,6 +15,15 @@ float sigmoid(float x);
 
 float sigmoidPrime(float x);
 
-Matrix * sigmoidMatrix(Matrix * m);
+Matrix * sig(Matrix * m);
 
-Matrix * sigmoidPrimeMatrix(Matrix * m);
+Matrix * sigP(Matrix * m);
+
+void randomize(Matrix * m, int min, int max) {
+	printf("%d\n", rand() % 20);
+	// for (int i = 0; i < m->rows; i++) {
+	// 	for (int j = 0; j < m->cols; j++) {
+
+	// 	}
+	// }
+}

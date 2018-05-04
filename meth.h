@@ -12,8 +12,10 @@ Matrix * add(Matrix * a, Matrix * b);
 
 Matrix * scale(float scalar, Matrix * m);
 
-Matrix * sigmoidMatrix(Matrix * m);
+Matrix * sig(Matrix * m);
 
-Matrix * sigmoidPrimeMatrix(Matrix * m);
+Matrix * sigP(Matrix * m);
+
+void randomize(Matrix * m, int min, int max);
 
 #endif

@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "network.h"
 #include "data.h"
+#include "meth.h"
 
 // debug, print matrix
 void printMatrix(Matrix * m) {
@@ -14,9 +16,17 @@ void printMatrix(Matrix * m) {
 }
 
 int main() {
+	// srand(time(NULL));
 
-	int params[] = {2, 3, 1};
+
+
+
+	int params[] = {20, 10, 5};
 	NeuralNetwork * n = initNN(3, params);
+	serialize("/home/tcastleman/Desktop/CS/fancy-regression/test.txt", n);
+	printf("Finished serializing\n");
+	NeuralNetwork * copy = construct("/home/tcastleman/Desktop/CS/fancy-regression/test.txt");
+	printf("Finished constructing\n");
 	free(n);
 
 	return 0;
