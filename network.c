@@ -175,6 +175,3 @@ NeuralNetwork * construct(char * filename) {
 		perror("Error reading file (network.c:construct)"), exit(1);
 	}
 }
-
-// train a given network on a given dataset using batch gradient descent
-void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningRate);
