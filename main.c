@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "structs.h"
+#include "meth.h"
 
 // debug, print matrix
 void printMatrix(Matrix * m) {
@@ -15,6 +16,12 @@ void printMatrix(Matrix * m) {
 
 int main() {
 	srand(time(NULL));
-
+	Matrix * studentA = initMatrix(5,6);
+	Matrix * studentB = initMatrix(5,5);
+	randomize(studentA, -1,1);
+	randomize(studentB,-1,1);
+	printMatrix(studentA);
+	printMatrix(studentB);
+	Matrix * disciplinaryCase = dot(studentA,studentB);
 	return 0;
 }

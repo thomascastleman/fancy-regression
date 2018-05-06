@@ -1,9 +1,20 @@
-
+#include <stdio.h>
 #include <stdlib.h>
 #include "structs.h"
 #include "meth.h"
 
-Matrix * dot(Matrix * a, Matrix * b);
+Matrix * dot(Matrix * a, Matrix * b){
+	if (a->cols == b->rows){
+		Matrix * c = initMatrix(a->rows, b->cols);
+
+		c->at
+
+		return c;
+
+	} else {
+		perror("Cannot multiply (meth.c:dot)"), exit(1);
+	}
+}
 
 Matrix * hadamard(Matrix * a, Matrix * b);
 
