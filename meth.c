@@ -5,10 +5,11 @@
 #include "structs.h"
 #include "meth.h"
 
+// multiply two matrices
 Matrix * dot(Matrix * a, Matrix * b){
 	if (a->cols == b->rows){
 		Matrix * c = initMatrix(a->rows, b->cols);
-		
+
 		for (int i = 0; i < a->rows; i++){
 			for (int j = 0; j < b->cols; j++){
 				c->at[i][j] = 0;
@@ -24,6 +25,7 @@ Matrix * dot(Matrix * a, Matrix * b){
 	}
 }
 
+// multiply matrices element-wise
 Matrix * hadamard(Matrix * a, Matrix * b) {
 	// check same dimensions
 	if (a->rows == b->rows && a->cols == b->cols) {
@@ -42,10 +44,21 @@ Matrix * hadamard(Matrix * a, Matrix * b) {
 	}
 }
 
-Matrix * transpose(Matrix * m);
+// transpose a matrix
+Matrix * transpose(Matrix * m){
+	Matrix * a = initMatrix(m->cols, m->rows);
+	for (int i = 0; i < m->cols; i++){
+		for (int j =0; j < m->rows; j++){
+			a->at[i][j] = m->at[j][i];
+		}
+	}
+	return a;
+}
 
+// add two matrices together
 Matrix * add(Matrix * a, Matrix * b);
 
+// multiply a matrix by a scalar
 Matrix * scale(float scalar, Matrix * m);
 
 // activation function

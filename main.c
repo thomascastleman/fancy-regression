@@ -17,5 +17,9 @@ void printMatrix(Matrix * m) {
 
 int main() {
 	srand(time(NULL));
+	Matrix * test  =  initMatrix(3,2);
+	randomize(test, -1,1);
+	printMatrix(test);
+	printMatrix(transpose(test));
 	return 0;
 }
