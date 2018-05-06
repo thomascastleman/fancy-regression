@@ -1,6 +1,6 @@
 
 #include <stdlib.h>
-#include "network.h"
+#include "structs.h"
 #include "meth.h"
 
 Matrix * dot(Matrix * a, Matrix * b);

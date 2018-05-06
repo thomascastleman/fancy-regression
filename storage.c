@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "network.h"
+#include "structs.h"
 #include "storage.h"
 
 // write weights and biases of a network to given file
@@ -36,7 +36,7 @@ void serialize(char * filename, NeuralNetwork * n) {
 			}
 		}
 	} else {
-		perror("Error opening file (network.c:serialize)");
+		perror("Error opening file (storage.c:serialize)");
 	}
 
 	fclose(fp);
@@ -125,6 +125,6 @@ NeuralNetwork * construct(char * filename) {
 		free(buffer);
 		return n;
 	} else {
-		perror("Error reading file (network.c:construct)"), exit(1);
+		perror("Error reading file (storage.c:construct)"), exit(1);
 	}
 }

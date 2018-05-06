@@ -2,6 +2,8 @@
 #ifndef _METH_INCLUDED_
 #define _METH_INCLUDED_
 
+#include "structs.h"
+
 Matrix * dot(Matrix * a, Matrix * b);
 
 Matrix * hadamard(Matrix * a, Matrix * b);

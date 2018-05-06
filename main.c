@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "network.h"
+#include "structs.h"
 
 // debug, print matrix
 void printMatrix(Matrix * m) {

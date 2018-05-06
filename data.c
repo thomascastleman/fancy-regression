@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "data.h"
-#include "network.h"
+#include "structs.h"
 
 #define SIZE_OF_IMAGE 784 // 28x28 training images
 #define OUTPUT_VECTOR_SIZE 36	// 10 digits, 26 letters

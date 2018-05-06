@@ -1,6 +1,6 @@
 
-#ifndef _NETWORK_INCLUDED_
-#define _NETWORK_INCLUDED_
+#ifndef _STRUCTS_INCLUDED_
+#define _STRUCTS_INCLUDED_
 
 typedef struct {
 	int rows;

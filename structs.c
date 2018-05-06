@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "network.h"
+#include "structs.h"
 
 // construct a new r by c matrix
 Matrix * initMatrix(int r, int c) {
