@@ -38,17 +38,37 @@ Matrix * add(Matrix * a, Matrix * b);
 
 Matrix * scale(float scalar, Matrix * m);
 
+// activation function
 float sigmoid(float x) {
 	return (1 / (1 + exp(-x)));
 }
 
+// derivative of activation function
 float sigmoidPrime(float x) {
 	return sigmoid(x) * (1 - sigmoid(x));
 }
 
-Matrix * sig(Matrix * m);
+// apply activation function element-wise
+Matrix * sig(Matrix * m) {
+	Matrix * a = initMatrix(m->rows, m->cols);
+	for (int i = 0; i < a->rows; i++) {
+		for (int j = 0; j < a->cols; j++) {
+			a->at[i][j] = sigmoid(m->at[i][j]);
+		}
+	}
+	return a;
+}
 
-Matrix * sigP(Matrix * m);
+// apply activation derivative element-wise
+Matrix * sigP(Matrix * m) {
+	Matrix * a = initMatrix(m->rows, m->cols);
+	for (int i = 0; i < a->rows; i++) {
+		for (int j = 0; j < a->cols; j++) {
+			a->at[i][j] = sigmoidPrime(m->at[i][j]);
+		}
+	}
+	return a;
+}
 
 // initialize a matrix to random values in a range
 void randomize(Matrix * m, float min, float max) {
