@@ -12,20 +12,10 @@ void printMatrix(Matrix * m) {
 		}
 		printf("\n");
 	}
+	printf("\n");
 }
 
 int main() {
 	srand(time(NULL));
-	Matrix * studentA = initMatrix(2,2);
-	Matrix * studentB = initMatrix(2,3);
-	randomize(studentA, -1,1);
-	randomize(studentB,-1,1);
-	printf("A\n");
-	printMatrix(studentA);
-	printf("B\n");
-	printMatrix(studentB);
-	Matrix * disciplinaryCase = dot(studentA,studentB);
-	printf("C\n");
-	printMatrix(disciplinaryCase);
 	return 0;
 }
