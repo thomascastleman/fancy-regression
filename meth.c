@@ -1,17 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "structs.h"
 #include "meth.h"
 
 Matrix * dot(Matrix * a, Matrix * b){
 	if (a->cols == b->rows){
 		Matrix * c = initMatrix(a->rows, b->cols);
-
-		c->at
-
 		return c;
-
 	} else {
 		perror("Cannot multiply (meth.c:dot)"), exit(1);
 	}
@@ -41,9 +38,13 @@ Matrix * add(Matrix * a, Matrix * b);
 
 Matrix * scale(float scalar, Matrix * m);
 
-float sigmoid(float x);
+float sigmoid(float x) {
+	return (1 / (1 + exp(-x)));
+}
 
-float sigmoidPrime(float x);
+float sigmoidPrime(float x) {
+	return sigmoid(x) * (1 - sigmoid(x));
+}
 
 Matrix * sig(Matrix * m);
 
