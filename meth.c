@@ -56,10 +56,32 @@ Matrix * transpose(Matrix * m){
 }
 
 // add two matrices together
-Matrix * add(Matrix * a, Matrix * b);
+Matrix * add(Matrix * a, Matrix * b){
+	if (a->rows == b->rows && a->cols == b->cols) {
+		Matrix * c = initMatrix(a->rows, a->cols);
+
+		for (int i = 0; i < a->rows; i++) {
+			for (int j = 0; j < a->cols;j++){
+				c->at[i][j] = a->at[i][j] + b->at[i][j];
+			}
+		} 
+
+		return c;
+	} else {
+		perror("Cannot add (meth.c:add)"), exit(1);
+	}
+}
 
 // multiply a matrix by a scalar
-Matrix * scale(float scalar, Matrix * m);
+Matrix * scale(float scalar, Matrix * m) {
+	Matrix * a = initMatrix(m->rows, m->cols);
+	for (int i = 0; i < a->rows; i++) {
+		for (int j = 0; j < a->cols; j++) {
+			a->at[i][j] = scalar * m->at[i][j];
+		}
+	}
+	return a;
+}
 
 // activation function
 float sigmoid(float x) {
