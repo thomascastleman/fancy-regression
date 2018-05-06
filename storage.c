@@ -70,12 +70,9 @@ char * readNextValue(char * buffer, int * buffIndex, char stop) {
 	// fill "next" with value up to stop character
 	char * next = malloc(size * sizeof(char));
 
-	printf("\nCall:\n");
-
 	// copy selected portion into next, moving along buffer index
 	i--;
 	while (*buffIndex < i) {
-		printf("Character: %c\n", buffer[*buffIndex]);
 		next[k++] = buffer[(*buffIndex)++];
 	}
 	(*buffIndex)++;
