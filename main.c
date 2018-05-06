@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include "network.h"
-#include "data.h"
 
 // debug, print matrix
 void printMatrix(Matrix * m) {

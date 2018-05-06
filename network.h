@@ -27,8 +27,4 @@ NeuralNetwork * initNN(int numLayers, int * params);
 
 DataSet * initDataSet(int size);
 
-void serialize(char * filename, NeuralNetwork * n);
-
-NeuralNetwork * construct(char * filename);
-
 #endif
