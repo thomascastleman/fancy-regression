@@ -1,8 +1,7 @@
 
+#include <stdlib.h>
 #include "network.h"
 #include "meth.h"
-
-#include <stdlib.h>
 
 Matrix * dot(Matrix * a, Matrix * b);
 
@@ -23,7 +22,7 @@ Matrix * sig(Matrix * m);
 Matrix * sigP(Matrix * m);
 
 // initialize a matrix to random values in a range
-void randomize(Matrix * m, int min, int max) {
+void randomize(Matrix * m, float min, float max) {
 	for (int i = 0; i < m->rows; i++) {
 		for (int j = 0; j < m->cols; j++) {
 			m->at[i][j] = ((float) rand() / RAND_MAX) * (max - min) + min;

@@ -16,6 +16,6 @@ Matrix * sig(Matrix * m);
 
 Matrix * sigP(Matrix * m);
 
-void randomize(Matrix * m, int min, int max);
+void randomize(Matrix * m, float min, float max);
 
 #endif

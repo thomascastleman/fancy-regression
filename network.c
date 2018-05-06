@@ -80,28 +80,6 @@ void serialize(char * filename, NeuralNetwork * n) {
 	fclose(fp);
 }
 
-typedef struct {
-	int size;
-	char * value;
-} String;
-
-// copy everything in buffer up to stopping point into a char *
-String * readNextValue(char * buffer, int position, char stop) {
-	int size = 0, i = position, k = 0;
-	while (buffer[i++] != stop)
-		size++;
-
-	String * s = malloc(sizeof(String));
-	s->size = size;
-	s->value = malloc(size * sizeof(char));	// allocate enough to store this value
-
-	for (i = position; i < position + size; i++) {
-		s->value[k++] = buffer[i];
-	}
-
-	return s;
-}
-
 // copy entire file into char * buffer
 char * copyFileContents(FILE * fp) {
 	// determine file size
@@ -116,33 +94,51 @@ char * copyFileContents(FILE * fp) {
 	// copy file contents into buffer
 	if (fread(buffer, fsize, 1, fp) != 1)
 		free(buffer), exit(1);
+	fclose(fp);
 
 	return buffer;
+}
+
+// copy everything in buffer up to stopping point into a char *
+char * readNextValue(char * buffer, int * buffIndex, char stop) {
+	int size = 0, i = *buffIndex, k = 0;
+	while (buffer[i++] != stop)
+		size++;
+
+	// fill "next" with value up to stop character
+	char * next = malloc(size * sizeof(char));
+
+	printf("\nCall:\n");
+
+	// copy selected portion into next, moving along buffer index
+	i--;
+	while (*buffIndex < i) {
+		printf("Character: %c\n", buffer[*buffIndex]);
+		next[k++] = buffer[(*buffIndex)++];
+	}
+	(*buffIndex)++;
+
+	return next;
 }
 
 // construct a network off of a serialization
 NeuralNetwork * construct(char * filename) {
 	FILE * fp = fopen(filename, "r");	// open file for reading
-	int i, l, j, k;
-	String * next;
+	int i = 0, l, j, k;
 
 	if (fp != NULL) {
 		char * buffer = copyFileContents(fp);	// copy contents into buffer for reading
-		fclose(fp);
 
-		next = readNextValue(buffer, 0, '|');	// parse number of layers
-		int numLayers = atoi(next->value);
-		i = next->size + 1;	// move index along in buffer
-
-		int params[numLayers], paramIndex = 0;	// allocate parameters array
+		// read number of layers and allocate corresponding parameters array
+		int numLayers = atoi(readNextValue(buffer, &i, '|'));
+		int params[numLayers], pInd = 0;
 		char stop = ',';
 
 		// for each parameter
-		while (paramIndex < numLayers) {
-			if (paramIndex == numLayers - 1) stop = '|';	// change delimiter if last param
-			next = readNextValue(buffer, i, stop);		// read parameter into param array
-			params[paramIndex++] = atoi(next->value);
-			i += next->size + 1;	// move index along
+		while (pInd < numLayers) {
+			if (pInd == numLayers - 1)
+				stop = '|';	// change delimiter if last param
+			params[pInd++] = atoi(readNextValue(buffer, &i, stop));
 		}
 
 		// initialize network
@@ -152,19 +148,17 @@ NeuralNetwork * construct(char * filename) {
 		for (l = 0; l < numLayers - 1; l++) {
 			// for each bias
 			for (j = 0; j < params[l + 1]; j++) {
-				next = readNextValue(buffer, i, ',');
-				n->b[l]->at[j][0] = atof(next->value);
-				i += next->size + 1;
+				n->b[l]->at[j][0] = atof(readNextValue(buffer, &i, ','));
 			}
 		}
 
-		// for each weight matrix
+		// for every weight matrix
 		for (l = 0; l < numLayers - 1; l++) {
+			// for every row
 			for (j = 0; j < params[l + 1]; j++) {
+				// for every column
 				for (k = 0; k < params[l]; k++) {
-					next = readNextValue(buffer, i, ',');
-					n->w[l]->at[j][k] = atof(next->value);
-					i += next->size + 1;
+					n->w[l]->at[j][k] = atof(readNextValue(buffer, &i, ','));
 				}
 			}
 		}
