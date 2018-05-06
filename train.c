@@ -3,18 +3,6 @@
 #include "structs.h"
 #include "meth.h"
 
-// debug, print matrix
-void printMatrix(Matrix * m) {
-	for (int r = 0; r < m->rows; r++) {
-		for (int c = 0; c < m->cols; c++) {
-			printf("%f ", m->at[r][c]);
-		}
-		printf("\n");
-	}
-	printf("\n");
-}
-
-
 // free a double pointer
 void freeDP(void ** dp, int size) {
 	for (int i = 0; i < size; i++) {
@@ -58,14 +46,10 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 
 	// for every batch
 	for (b = 0; b < training->size; b += batchSize) {
-		printf("BATCH %d\n", b);
-
 		zero(gradientNet);	// set entire gradient net to 0
 
 		// for every pair within batch
 		for (p = b; p < b + batchSize; p++) {
-			printf("Pair\n");
-
 			// pass input through weights
 			z[0] = add(dot(n->w[0], training->inputs[p]), n->b[0]);
 
@@ -95,7 +79,11 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 			gradientNet->w[0] = add(gradientNet->w[0], dot(delta[0], transpose(sig(training->inputs[p]))));
 		}
 
-		
+		// make averaged changes to weights / biases
+		for (l = 0; l < L; l++) {
+			n->w[l] = add(n->w[l], scale(-learningRate / batchSize, gradientNet->w[l]));
+			n->b[l] = add(n->b[l], scale(-learningRate / batchSize, gradientNet->b[l]));
+		}
 
 	}
 
