@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "structs.h"
+#include "meth.h"
 
 // debug, print matrix
 void printMatrix(Matrix * m) {
@@ -11,6 +12,7 @@ void printMatrix(Matrix * m) {
 		}
 		printf("\n");
 	}
+	printf("\n");
 }
 
 int main() {
