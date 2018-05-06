@@ -9,7 +9,7 @@ Matrix * initMatrix(int r, int c) {
 	// allocate row and column arrays
 	m->at = (float **) malloc(r * sizeof(float *));
 	for (int i = 0; i < r; i++)
-		m->at[i] = (float *) malloc(c * sizeof(float));
+		m->at[i] = (float *) calloc(c, sizeof(float));
 	return m;
 }
 
