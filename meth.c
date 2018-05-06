@@ -7,10 +7,16 @@ Matrix * dot(Matrix * a, Matrix * b){
 	if (a->cols == b->rows){
 		Matrix * c = initMatrix(a->rows, b->cols);
 
-		c->at
+		for (int i = 0; i < a->rows; i++){
+			for (int j = 0; j < b->cols; j++){
+				c->at[i][j] = 0;
+				for (int n = 0; n < a->cols; n++){
+					c->at[i][j] += a->at[i][n] * b->at[n][j];
+				}
+			}
+		}
 
 		return c;
-
 	} else {
 		perror("Cannot multiply (meth.c:dot)"), exit(1);
 	}
