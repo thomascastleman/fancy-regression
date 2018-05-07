@@ -4,6 +4,10 @@
 
 #include "structs.h"
 
+float accuracy(NeuralNetwork * n, DataSet * test);
+
+void freeMatrix(Matrix * m);
+
 Matrix * forwardPass(NeuralNetwork * n, Matrix * input);
 
 void freeDP(void ** dp, int size);

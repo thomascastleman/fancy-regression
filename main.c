@@ -15,14 +15,15 @@ int main() {
 	NeuralNetwork * n = initNN(3, params);
 	randomizeNet(n, -0.5, 0.5, -0.5, 0.5);
 
-	DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 1000, 0);
+	DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 30000, 0);
 	
-	// train(n, mnist, 10, 1, 30);
+	train(n, mnist, 20, 1, 3);
 
-	DataSet * test = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-test.csv", 10, 0);
+	// serialize("/home/tcastleman/Desktop/CS/fancy-regression/net.txt", n);
 
-	Matrix * output = forwardPass(n, test->inputs[0]);
-	printSideBySide(output, test->outputs[0]);
+	// NeuralNetwork * n = construct("/home/tcastleman/Desktop/CS/fancy-regression/net.txt");
+	// DataSet * test = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-test.csv", 1000, 0);
+	// printf("Accuracy: %f\n", accuracy(n, test));
 
 	return 0;
 }

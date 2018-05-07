@@ -5,9 +5,43 @@
 #include "meth.h"
 #include "util.h"
 
+// determine accuracy of classification over a test set
+float accuracy(NeuralNetwork * n, DataSet * test) {
+	int numCorrect = 0, i, j, max;
+
+	for (i = 0; i < test->size; i++) {
+		Matrix * output = forwardPass(n, test->inputs[i]);
+
+		max = 0;
+		for (j = 0; j < output->rows; j++) {
+			if (output->at[j][0] > output->at[max][0]) {
+				max = j;
+			}
+		}
+
+		if (test->outputs[i]->at[max][0] == 1.0)
+			numCorrect++;
+
+		freeMatrix(output);
+	}
+
+	return numCorrect / (float) test->size;
+}
+
+void freeMatrix(Matrix * m) {
+	for (int i = 0; i < m->rows; i++) {
+		free(m->at[i]);
+	}
+	free(m->at);
+	free(m);
+}
+
 // pass an input vector through a network
 Matrix * forwardPass(NeuralNetwork * n, Matrix * input) {
-	Matrix * act = input;
+	Matrix * act = initMatrix(input->rows, input->cols);
+	for (int i = 0; i < act->rows; i++) {
+		act->at[i][0] = input->at[i][0];
+	}
 	int l;
 	// pass activation through network
 	for (l = 0; l < n->numberOfLayers - 2; l++) {
@@ -23,7 +57,7 @@ Matrix * forwardPass(NeuralNetwork * n, Matrix * input) {
 // free a double pointer
 void freeDP(void ** dp, int size) {
 	for (int i = 0; i < size; i++) {
-		free(dp[i]);
+		freeMatrix((Matrix *) dp[i]);
 	}
 	free(dp);
 }
