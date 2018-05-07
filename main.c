@@ -44,16 +44,36 @@ int main() {
 	NeuralNetwork * n = initNN(5, params);
 	randomizeNet(n, -0.25, 0.25, -1, 1);
 
-	DataSet * mnist = readMNIST("/Users/johnlindbergh/Documents/fancy-regression/MNIST/mnist-train.csv", 10000, 0);
+	DataSet * mnist = readMNIST("/Users/johnlindbergh/Documents/fancy-regression/MNIST/emnist-letters-train.csv", 10000, 1);
 
-	train(n, mnist, 5, 1);
+	train(n, mnist, 1, 1);
+	for (int pair = 10; pair <100; pair++){
 
-	Matrix * output = forwardPass(n, mnist->inputs[0]);
+	Matrix * output = forwardPass(n, mnist->inputs[pair]);
 	printf("OUTPUT!!!\n");
 	printMatrix(output);
 
-	printf("Actual:\n");
-	printMatrix(mnist->outputs[0]);
+	//printMatrix(mnist->inputs[1]);
 
+	for (int x = 0; x < 784; x++ ){
+		
+			//printf("%f", mnist->inputs[1]->at[0][x*y] );
+			if (mnist->inputs[pair]->at[x][0]>200){
+				printf("#");
+			}else{
+				printf("_");
+			}
+		if (x % 28 == 0){
+			printf("\n");
+		}
+		
+
+	}
+
+	
+
+	printf("Actual:\n");
+	printMatrix(mnist->outputs[pair]);
+}
 	return 0;
 }
