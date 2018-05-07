@@ -115,20 +115,6 @@ Matrix * sigP(Matrix * m) {
 	return a;
 }
 
-// initialize a matrix to random values in a range
-void randomize(Matrix * m, float min, float max) {
-	for (int i = 0; i < m->rows; i++) {
-		for (int j = 0; j < m->cols; j++) {
-			m->at[i][j] = ((float) rand() / RAND_MAX) * (max - min) + min;
-		}
-	}
-}
-
-// generate random integer
-int randInt(int min, int max) {
-	return rand() % (max - min) + min;
-}
-
 // compute last layer activation with softmax
 Matrix * softMax(Matrix * z) {
 	Matrix * a = initMatrix(z->rows, 1);

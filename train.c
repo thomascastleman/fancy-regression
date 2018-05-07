@@ -2,34 +2,7 @@
 #include <stdlib.h>
 #include "structs.h"
 #include "meth.h"
-
-// free a double pointer
-void freeDP(void ** dp, int size) {
-	for (int i = 0; i < size; i++) {
-		free(dp[i]);
-	}
-	free(dp);
-}
-
-// set entire network to 0
-void zero(NeuralNetwork * n) {
-	int l, j, k;
-	// weights
-	for (l = 0; l < n->numberOfLayers - 1; l++) {
-		for (j = 0; j < n->w[l]->rows; j++) {
-			for (k = 0; k < n->w[l]->cols; k++) {
-				n->w[l]->at[j][k] = 0.0f;
-			}
-		}
-	}
-
-	// biases
-	for (l = 0; l < n->numberOfLayers - 1; l++) {
-		for (j = 0; j < n->b[l]->rows; j++) {
-			n->b[l]->at[j][0] = 0.0f;
-		}
-	}
-}
+#include "util.h"
 
 // swap a training pair within a dataset
 void swapPair(DataSet * d, int p1, int p2) {
