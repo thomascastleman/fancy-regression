@@ -49,7 +49,6 @@ void shuffle(DataSet * d) {
 	}
 }
 
-
 // train a given network on a given dataset using batch gradient descent
 void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningRate, int epochs) {
 	// init net to keep track of gradients for all weights and biases (identical structure)
@@ -84,7 +83,7 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 				}
 
 				// calculate last layer error
-				delta[L - 1] = hadamard(add(softMax(z[L - 1]), scale(-1, training->outputs[p])), sigP(z[L - 1]));
+				delta[L - 1] = hadamard(add(sig(z[L - 1]), scale(-1, training->outputs[p])), sigP(z[L - 1]));
 
 				// record last layer gradients
 				gradientNet->w[L - 1] = add(gradientNet->w[L - 1], dot(delta[L - 1], transpose(sig(z[L - 2]))));

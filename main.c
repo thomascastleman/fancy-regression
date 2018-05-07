@@ -34,6 +34,7 @@ Matrix * forwardPass(NeuralNetwork * n, Matrix * input) {
 	for (l = 0; l < n->numberOfLayers - 2; l++) {
 		act = sig(add(dot(n->w[l], act), n->b[l]));
 	}
+	// apply softmax to last layer
 	l = n->numberOfLayers - 2;
 	act = softMax(add(dot(n->w[l], act), n->b[l]));
 
@@ -47,8 +48,8 @@ int main() {
 	NeuralNetwork * n = initNN(3, params);
 	randomizeNet(n, -0.5, 0.5, -0.5, 0.5);
 
-	DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 1000, 0);
-	train(n, mnist, 25, 0.75, 30);
+	DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 2500, 0);
+	train(n, mnist, 10, 1, 10);
 
 	// serialize("/home/tcastleman/Desktop/CS/fancy-regression/net.txt", n);
 

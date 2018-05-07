@@ -132,7 +132,8 @@ int randInt(int min, int max) {
 // compute last layer activation with softmax
 Matrix * softMax(Matrix * z) {
 	Matrix * a = initMatrix(z->rows, 1);
-	int sum = 0, i;
+	float sum = 0.0f;
+	int i;
 	for (i = 0; i < z->rows; i++) {
 		sum += exp(z->at[i][0]);
 	}
