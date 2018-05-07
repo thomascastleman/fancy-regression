@@ -80,3 +80,9 @@ void randomizeNet(NeuralNetwork * n, float wMin, float wMax, float bMin, float b
 		randomize(n->b[l], bMin, bMax);
 	}
 }
+
+void printSideBySide(Matrix * a, Matrix * b) {
+	for (int i = 0; i < a->rows; i++) {
+		printf("%f --> %f\n", a->at[i][0], b->at[i][0]);
+	}
+}

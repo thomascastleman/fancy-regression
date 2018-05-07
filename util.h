@@ -18,4 +18,6 @@ int randInt(int min, int max);
 
 void randomizeNet(NeuralNetwork * n, float wMin, float wMax, float bMin, float bMax);
 
+void printSideBySide(Matrix * a, Matrix * b);
+
 #endif
