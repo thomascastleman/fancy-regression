@@ -17,9 +17,9 @@ int main() {
 
 	DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 1000, 0);
 	
-	train(n, mnist, 10, 1, 30);
+	// train(n, mnist, 10, 1, 30);
 
-	DataSet * test = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-test.csv", 5, 0);
+	DataSet * test = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-test.csv", 10, 0);
 
 	Matrix * output = forwardPass(n, test->inputs[0]);
 	printSideBySide(output, test->outputs[0]);
