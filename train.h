@@ -4,6 +4,6 @@
 
 #include "structs.h"
 
-void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningRate);
+void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningRate, int epochs);
 
 #endif

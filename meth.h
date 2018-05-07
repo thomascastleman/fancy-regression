@@ -20,4 +20,8 @@ Matrix * sigP(Matrix * m);
 
 void randomize(Matrix * m, float min, float max);
 
+int randInt(int min, int max);
+
+Matrix * softMax(Matrix * z);
+
 #endif

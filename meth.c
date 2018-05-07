@@ -123,3 +123,23 @@ void randomize(Matrix * m, float min, float max) {
 		}
 	}
 }
+
+// generate random integer
+int randInt(int min, int max) {
+	return rand() % (max - min) + min;
+}
+
+// compute last layer activation with softmax
+Matrix * softMax(Matrix * z) {
+	Matrix * a = initMatrix(z->rows, 1);
+	int sum = 0, i;
+	for (i = 0; i < z->rows; i++) {
+		sum += exp(z->at[i][0]);
+	}
+
+	for (i = 0; i < z->rows; i++) {
+		a->at[i][0] = exp(z->at[i][0]) / sum;
+	}
+
+	return a;
+}
