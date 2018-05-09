@@ -4,8 +4,6 @@
 #include "meth.h"
 #include "util.h"
 
-#include <math.h>
-
 // compute weighted input in layer l
 Matrix * weightedInput(int l, Matrix * w_l, Matrix * b_l, Matrix * a_prev) {
 	Matrix * weighted = dot(w_l, a_prev);

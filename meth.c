@@ -90,7 +90,8 @@ float sigmoid(float x) {
 
 // derivative of activation function
 float sigmoidPrime(float x) {
-	return exp(-x) / powf(1 + exp(-x), 2);
+	// return exp(-x) / powf(1 + exp(-x), 2);
+	return sigmoid(x) * (1 - sigmoid(x));
 }
 
 // apply activation function element-wise
