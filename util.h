@@ -28,4 +28,8 @@ void printSideBySide(Matrix * a, Matrix * b);
 
 int * paramCopy(int * params, int size);
 
+void swapPair(DataSet * d, int p1, int p2);
+
+void shuffle(DataSet * d);
+
 #endif

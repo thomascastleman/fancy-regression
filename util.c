@@ -94,22 +94,11 @@ Matrix * forwardPass(NeuralNetwork * n, Matrix * input) {
 	return act;
 }
 
-// set entire network to 0
-void zero(NeuralNetwork * n) {
-	int l, j, k;
-	// weights
-	for (l = 0; l < n->numberOfLayers - 1; l++) {
-		for (j = 0; j < n->w[l]->rows; j++) {
-			for (k = 0; k < n->w[l]->cols; k++) {
-				n->w[l]->at[j][k] = 0.0f;
-			}
-		}
-	}
-
-	// biases
-	for (l = 0; l < n->numberOfLayers - 1; l++) {
-		for (j = 0; j < n->b[l]->rows; j++) {
-			n->b[l]->at[j][0] = 0.0f;
+// set entire matrix to 0
+void zero(Matrix * m) {
+	for (int i = 0; i < m->rows; i++) {
+		for (int j = 0; j < m->cols; j++) {
+			m->at[i][j] = 0.0f;
 		}
 	}
 }
@@ -143,4 +132,22 @@ int * paramCopy(int * params, int size) {
 		copy[i] = params[i];
 	}
 	return copy;
+}
+
+// swap a training pair within a dataset
+void swapPair(DataSet * d, int p1, int p2) {
+	Matrix * inp = d->inputs[p1];
+	Matrix * out = d->outputs[p1];
+	d->inputs[p1] = d->inputs[p2];
+	d->outputs[p1] = d->outputs[p2];
+	d->inputs[p2] = inp;
+	d->outputs[p2] = out;
+}
+
+// randomize the order of pairs in a dataset
+void shuffle(DataSet * d) {
+	// swap each pair with a randomly chosen pair
+	for (int n = 0; n < d->size; n++) {
+		swapPair(d, n, randInt(0, d->size));
+	}
 }
