@@ -26,6 +26,7 @@ void printSideBySide(Matrix * a, Matrix * b) {
 // pass an input vector through a network
 Matrix * forwardPass(NeuralNetwork * n, Matrix * input) {
 	int l;
+	Matrix *weighted, *plusBias;
 	// copy input as first layer activation
 	Matrix * act = initMatrix(input->rows, input->cols);
 	for (int l = 0; l < act->rows; l++) {

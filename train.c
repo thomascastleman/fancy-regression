@@ -4,6 +4,8 @@
 #include "meth.h"
 #include "util.h"
 
+#include <math.h>
+
 // compute weighted input in layer l
 Matrix * weightedInput(int l, Matrix * w_l, Matrix * b_l, Matrix * a_prev) {
 	Matrix * weighted = dot(w_l, a_prev);
@@ -121,6 +123,12 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 			// make averaged changes to weights / biases
 			for (l = 0; l < L; l++) {
 				gradient = scale(-learningRate / batchSize, gradientNet->w[l]);
+
+				printf("%f\n", -learningRate / batchSize);
+
+				printMatrix(gradient);
+				exit(1);
+
 				oldWeights = n->w[l];
 				n->w[l] = add(n->w[l], gradient);
 				freeMatrix(oldWeights);
