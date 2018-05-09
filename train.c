@@ -14,7 +14,7 @@ Matrix * weightedInput(int l, Matrix * w_l, Matrix * b_l, Matrix * a_prev) {
 
 // compute error in last layer of network relative to weighted input and expected output
 Matrix * lastError(int l, Matrix * z, Matrix * y) {
-	Matrix * a_L = sig(z);
+	Matrix * a_L = softMax(z);
 	Matrix * neg_y = scale(-1, y);
 	Matrix * diff = add(a_L, neg_y);
 	Matrix * sigPrimeZ = sigP(z);

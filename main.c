@@ -11,22 +11,27 @@
 int main() {
 	srand(time(NULL));
 
+	// // TRAINING --------------------------------
+
 	// int params[] = {784, 50, 36};
 	// NeuralNetwork * n = initNN(sizeof(params) / sizeof(int), params);
 	// randomizeNet(n, -0.5, 0.5, -0.5, 0.5);
 
-	// DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 2000, 0);
-	
+	// DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 30000, 0);
+
 	// train(n, mnist, 50, 0.7, 5);
 
 	// serialize("/home/tcastleman/Desktop/CS/fancy-regression/net.txt", n);
 
-	// NeuralNetwork * n = construct("/home/tcastleman/Desktop/CS/fancy-regression/net.txt");
-	// DataSet * test = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-test.csv", 3000, 0);
-	// printf("Accuracy: %f\n", accuracy(n, test));
 
-	// Matrix * est = forwardPass(n, test->inputs[0]);
-	// printSideBySide(est, test->outputs[0]);
+	// TESTING -----------------------------------
+
+	NeuralNetwork * n = construct("/home/tcastleman/Desktop/CS/fancy-regression/net.txt");
+	DataSet * test = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-test.csv", 10000, 0);
+	printf("Accuracy: %f\n", accuracy(n, test));
+
+	Matrix * est = forwardPass(n, test->inputs[0]);
+	printSideBySide(est, test->outputs[0]);
 
 	freeNetwork(n);
 	return 0;
