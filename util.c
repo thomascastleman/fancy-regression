@@ -23,6 +23,33 @@ void printSideBySide(Matrix * a, Matrix * b) {
 	}
 }
 
+// pass an input vector through a network
+Matrix * forwardPass(NeuralNetwork * n, Matrix * input) {
+	int l;
+	// copy input as first layer activation
+	Matrix * act = initMatrix(input->rows, input->cols);
+	for (int l = 0; l < act->rows; l++) {
+		act->at[l][0] = input->at[l][0];
+	}
+
+	// pass activation through network
+	for (l = 0; l < n->numberOfLayers - 1; l++) {
+		weighted = dot(n->w[l], act);
+		plusBias = add(weighted, n->b[l]);
+
+		// activate, apply softmax at last layer
+		if (l < n->numberOfLayers - 2)
+			act = sig(plusBias);
+		else
+			act = softMax(plusBias);
+
+		freeMatrix(weighted);
+		freeMatrix(plusBias);
+	}
+
+	return act;
+}
+
 // determine accuracy of classification over a test set
 float accuracy(NeuralNetwork * n, DataSet * test) {
 	int numCorrect = 0, i, j, max;
@@ -69,29 +96,6 @@ void freeNetwork(NeuralNetwork * n) {
 	free(n->b);	// free pointer to bias vectors
 	free(n->params); // free pointer to network parameters
 	free(n); // free pointer to struct
-}
-
-
-// THIS IS LEAKY AHHH -----------------------------------------------------------------------------
-// pass an input vector through a network
-Matrix * forwardPass(NeuralNetwork * n, Matrix * input) {
-	int l;
-	// copy input as first layer activation
-	Matrix * act = initMatrix(input->rows, input->cols);
-	for (int l = 0; l < act->rows; l++) {
-		act->at[l][0] = input->at[l][0];
-	}
-
-	// pass activation through network
-	for (l = 0; l < n->numberOfLayers - 2; l++) {
-		act = sig(add(dot(n->w[l], act), n->b[l]));
-	}
-
-	// apply softmax to last layer
-	l = n->numberOfLayers - 2;
-	act = softMax(add(dot(n->w[l], act), n->b[l]));
-
-	return act;
 }
 
 // set entire matrix to 0
