@@ -164,8 +164,11 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 			}
 		}
 	}
-	
-	freeDP((void**) z, L);
-	freeDP((void**) delta, L);
+
+	for (e = 0; e < L; e++) {
+		freeMatrix(z[e]);
+		freeMatrix(delta[e]);
+	}
+
 	freeNetwork(gradientNet);
 }
