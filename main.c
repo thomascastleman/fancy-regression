@@ -17,7 +17,7 @@ int main() {
 
 	DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 1000, 0);
 	
-	train(n, mnist, 1, 0.5, 5);
+	train(n, mnist, 10, 0.5, 5);
 
 	// serialize("/home/tcastleman/Desktop/CS/fancy-regression/net.txt", n);
 

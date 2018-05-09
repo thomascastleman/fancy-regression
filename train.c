@@ -123,12 +123,6 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 			// make averaged changes to weights / biases
 			for (l = 0; l < L; l++) {
 				gradient = scale(-learningRate / batchSize, gradientNet->w[l]);
-
-				printf("%f\n", -learningRate / batchSize);
-
-				printMatrix(gradient);
-				exit(1);
-
 				oldWeights = n->w[l];
 				n->w[l] = add(n->w[l], gradient);
 				freeMatrix(oldWeights);
