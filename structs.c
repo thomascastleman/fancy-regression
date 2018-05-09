@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "util.h"
 #include "structs.h"
 
 // construct a new r by c matrix
@@ -18,7 +19,7 @@ NeuralNetwork * initNN(int numLayers, int * params) {
 	NeuralNetwork * n = malloc(sizeof(NeuralNetwork));	// allocate network
 
 	n->numberOfLayers = numLayers;
-	n->params = params;
+	n->params = paramCopy(params, numLayers);
 	n->w = malloc((numLayers - 1) * sizeof(Matrix *));	// allocate array of weight matrices
 	n->b = malloc((numLayers - 1) * sizeof(Matrix *));	// allocate array of bias vectors
 

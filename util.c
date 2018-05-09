@@ -28,12 +28,25 @@ float accuracy(NeuralNetwork * n, DataSet * test) {
 	return numCorrect / (float) test->size;
 }
 
+// free a matrix
 void freeMatrix(Matrix * m) {
 	for (int i = 0; i < m->rows; i++) {
 		free(m->at[i]);
 	}
 	free(m->at);
 	free(m);
+}
+
+// fully free an entire network
+void freeNetwork(NeuralNetwork * n) {
+	for (int i = 0; i < n->numberOfLayers - 1; i++) {
+		freeMatrix(n->w[i]);
+		freeMatrix(n->b[i]);
+	}
+	free(n->w);
+	free(n->b);
+	free(n->params);
+	free(n);
 }
 
 // pass an input vector through a network
@@ -119,4 +132,12 @@ void printSideBySide(Matrix * a, Matrix * b) {
 	for (int i = 0; i < a->rows; i++) {
 		printf("%f --> %f\n", a->at[i][0], b->at[i][0]);
 	}
+}
+
+int * paramCopy(int * params, int size) {
+	int * copy = malloc(size * sizeof(int));
+	for (int i = 0; i < size; i++) {
+		copy[i] = params[i];
+	}
+	return copy;
 }

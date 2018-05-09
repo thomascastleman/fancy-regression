@@ -12,10 +12,10 @@ int main() {
 	srand(time(NULL));
 
 	int params[] = {784, 50, 36};
-	NeuralNetwork * n = initNN(3, params);
+	NeuralNetwork * n = initNN(sizeof(params) / sizeof(int), params);
 	randomizeNet(n, -0.5, 0.5, -0.5, 0.5);
 
-	DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 30000, 0);
+	DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 40000, 0);
 	
 	train(n, mnist, 20, 1, 3);
 
@@ -25,5 +25,6 @@ int main() {
 	// DataSet * test = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-test.csv", 1000, 0);
 	// printf("Accuracy: %f\n", accuracy(n, test));
 
+	freeNetwork(n);
 	return 0;
 }

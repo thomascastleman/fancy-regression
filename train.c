@@ -25,7 +25,7 @@ void shuffle(DataSet * d) {
 // train a given network on a given dataset using batch gradient descent
 void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningRate, int epochs) {
 	// init net to keep track of gradients for all weights and biases (identical structure)
-	NeuralNetwork * gradientNet = initNN(n->numberOfLayers, n->params);
+	NeuralNetwork * gradientNet = initNN(n->numberOfLayers, paramCopy(n->params, n->numberOfLayers));
 
 	int L = n->numberOfLayers - 1;	// number of weight matrices / bias vectors
 
@@ -49,9 +49,7 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 			// for every pair within batch
 			for (p = b; p < b + batchSize; p++) {
 
-				if (e > 0) {
-					freeMatrix(z[0]);
-				}
+				if (e > 0) freeMatrix(z[0]);
 
 				// pass input through weights
 				prod = dot(n->w[0], training->inputs[p]);
@@ -119,10 +117,8 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 					freeMatrix(sP);
 
 					biases = gradientNet->b[l];
-
 					// add to gradients
 					gradientNet->b[l] = add(gradientNet->b[l], delta[l]);
-
 					freeMatrix(biases);
 
 					if (l > 0) {
@@ -131,9 +127,7 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 						prod = dot(delta[l], tr);
 
 						weights = gradientNet->w[l];
-
 						gradientNet->w[l] = add(gradientNet->w[l], prod);
-
 						freeMatrix(weights);
 	
 						freeMatrix(s);
@@ -147,10 +141,8 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 				prod = dot(delta[0], tr);
 
 				weights = gradientNet->w[0];
-
 				// add first layer weight gradients
 				gradientNet->w[0] = add(gradientNet->w[0], prod);
-
 				freeMatrix(weights);
 
 				freeMatrix(s), freeMatrix(tr), freeMatrix(prod);
@@ -172,8 +164,8 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 			}
 		}
 	}
-
+	
 	freeDP((void**) z, L);
 	freeDP((void**) delta, L);
-	free(gradientNet);
+	freeNetwork(gradientNet);
 }
