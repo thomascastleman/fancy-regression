@@ -5,7 +5,7 @@
 #include "util.h"
 
 // compute weighted input in layer l
-Matrix * weightedInput(int l, Matrix * w_l, Matrix * b_l, Matrix * a_prev) {
+Matrix * weightedInput(Matrix * w_l, Matrix * b_l, Matrix * a_prev) {
 	Matrix * weighted = dot(w_l, a_prev);
 	Matrix * plusBias = add(weighted, b_l);
 	freeMatrix(weighted);
@@ -13,7 +13,7 @@ Matrix * weightedInput(int l, Matrix * w_l, Matrix * b_l, Matrix * a_prev) {
 }
 
 // compute error in last layer of network relative to weighted input and expected output
-Matrix * lastError(int l, Matrix * z, Matrix * y) {
+Matrix * lastError(Matrix * z, Matrix * y) {
 	Matrix * a_L = softMax(z);
 	Matrix * neg_y = scale(-1, y);
 	Matrix * diff = add(a_L, neg_y);
@@ -30,7 +30,7 @@ Matrix * lastError(int l, Matrix * z, Matrix * y) {
 }
 
 // compute error in lth layer in terms of error in (l+1)th layer
-Matrix * error(int l, Matrix * z, Matrix * w_l_next, Matrix * d_next) {
+Matrix * error(Matrix * z, Matrix * w_l_next, Matrix * d_next) {
 	Matrix * weightT = transpose(w_l_next);
 	Matrix * w_dot_delta = dot(weightT, d_next);
 	Matrix * sigPrimeZ = sigP(z);
@@ -81,7 +81,7 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 				for (l = 0; l < L; l++) {
 					// compute weighted input to lth layer relative to activation in previous
 					prevAct = l == 0 ? training->inputs[p] : sig(z[l - 1]);
-					z[l] = weightedInput(l, n->w[l], n->b[l], prevAct);
+					z[l] = weightedInput(n->w[l], n->b[l], prevAct);
 					if (l > 0) freeMatrix(prevAct);
 				}
 
@@ -89,10 +89,10 @@ void train(NeuralNetwork * n, DataSet * training, int batchSize, float learningR
 				for (l = L - 1; l >= 0; l--) {
 					if (l ==  L - 1) {
 						// compute error at last layer
-						delta[l] = lastError(l, z[l], training->outputs[p]);
+						delta[l] = lastError(z[l], training->outputs[p]);
 					} else {
 						// recursively calculate error at lth layer
-						delta[l] = error(l, z[l], n->w[l + 1], delta[l + 1]);
+						delta[l] = error(z[l], n->w[l + 1], delta[l + 1]);
 
 						// next layer error no longer needed
 						freeMatrix(delta[l + 1]);

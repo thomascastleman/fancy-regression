@@ -6,7 +6,7 @@
 #include "meth.h"
 
 // multiply two matrices
-Matrix * dot(Matrix * a, Matrix * b){
+Matrix * dot(Matrix * a, Matrix * b) {
 	if (a->cols == b->rows){
 		Matrix * c = initMatrix(a->rows, b->cols);
 
@@ -56,7 +56,7 @@ Matrix * transpose(Matrix * m){
 }
 
 // add two matrices together
-Matrix * add(Matrix * a, Matrix * b){
+Matrix * add(Matrix * a, Matrix * b) {
 	if (a->rows == b->rows && a->cols == b->cols) {
 		Matrix * c = initMatrix(a->rows, a->cols);
 

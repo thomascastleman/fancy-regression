@@ -15,12 +15,9 @@ int main() {
 
 	// int params[] = {784, 50, 36};
 	// NeuralNetwork * n = initNN(sizeof(params) / sizeof(int), params);
-	// randomizeNet(n, -0.5, 0.5, -0.5, 0.5);
-
-	// DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 30000, 0);
-
-	// train(n, mnist, 50, 0.7, 5);
-
+	// randomizeNet(n, -0.15, 0.15, -0.25, 0.25);
+	// DataSet * mnist = readMNIST("/home/tcastleman/Desktop/CS/fancy-regression/MNIST/mnist-train.csv", 40000, 0);
+	// train(n, mnist, 10, 0.05, 10);
 	// serialize("/home/tcastleman/Desktop/CS/fancy-regression/net.txt", n);
 
 
