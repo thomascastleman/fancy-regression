@@ -20,6 +20,8 @@ void zero(Matrix * m);
 
 void randomizeNet(NeuralNetwork * n, float wMin, float wMax, float bMin, float bMax);
 
+void gaussianRandomizeNet(NeuralNetwork * n);
+
 int * paramCopy(int * params, int size);
 
 void shuffle(DataSet * d);

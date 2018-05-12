@@ -122,11 +122,38 @@ int randInt(int min, int max) {
 	return rand() % (max - min) + min;
 }
 
-// randomize weights and biases within ranges
+// randomize weights and biases uniformly within ranges
 void randomizeNet(NeuralNetwork * n, float wMin, float wMax, float bMin, float bMax) {
 	for (int l = 0; l < n->numberOfLayers - 1; l++) {
 		randomize(n->w[l], wMin, wMax);
 		randomize(n->b[l], bMin, bMax);
+	}
+}
+
+// generate a gaussian variable with given mean and standard deviation
+float gaussian(double mean, double std_dev) {
+	double u1 = ((double) rand() / RAND_MAX);
+	double u2 = ((double) rand() / RAND_MAX);
+	return u1 == 0.0 ? 0.0f : (float) (mean + (std_dev * sqrt(-2 * log(u1)) * cos(2 * M_PI * u2)));
+}
+
+// randomize weights & biases with Gaussian distributions
+void gaussianRandomizeNet(NeuralNetwork * n) {
+	double std_dev, u1, u2;
+	int l, j, k;
+
+	// for each layer
+	for (l = 0; l < n->numberOfLayers - 1; l++) {
+		std_dev = 1.0 / sqrt(n->params[l]);
+
+		// for each weight / bias
+		for (j = 0; j < n->w[l]->rows; j++) {
+			for (k = 0; k < n->w[l]->cols; k++) {
+				n->w[l]->at[j][k] = gaussian(0.0, std_dev);
+			}
+
+			n->b[l]->at[j][0] = gaussian(0.0, 1.0);
+		}
 	}
 }
 
